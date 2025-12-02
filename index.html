@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="icons/favicon.ico" />
+
+    <title>Scamper Education</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Inter -->
+  <link rel="stylesheet" as="style" href="/fonts/stylesheet.css" crossorigin="anonymous" />
+  <link
+    rel="preload"
+    href="/fonts/Inter18pt-Black.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preload"
+    href="/fonts/Inter18pt-Bold.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preload"
+    href="/fonts/Inter18pt-Light.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preload"
+    href="/fonts/Inter18pt-Medium.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preload"
+    href="/fonts/Inter18pt-Regular.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preload"
+    href="/fonts/Inter18pt-SemiBold.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preload"
+    href="/fonts/Inter18pt-Thin.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preload"
+    href="/fonts/Inter18pt-ExtraBold.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="preload"
+    href="/fonts/Inter18pt-ExtraLight.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin="anonymous"
+  />
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+
+      p, h1, h2, h3, h4, h5, h6 {
+        font-family: 'Inter', sans-serif;
+        color: #01132A;
+      }
+      /* Custom Grid Background for Hero */
+      .hero-grid {
+        background-size: 
+          /* Colored squares size (80px to match grid) */
+          80px 80px,
+          80px 80px,
+          80px 80px,
+          80px 80px,
+          /* Grid lines size */
+          80px 80px,
+          80px 80px;
+        background-image:
+          /* Colored squares - 2 on left, 2 on right */
+          linear-gradient(#E7F1FF, #E7F1FF),
+          linear-gradient(#E7F1FF, #E7F1FF),
+          linear-gradient(#E7F1FF, #E7F1FF),
+          linear-gradient(#E7F1FF, #E7F1FF),
+          /* Grid lines */
+          linear-gradient(to right, #f1f5f9 1px, transparent 1px),
+          linear-gradient(to bottom, #f1f5f9 1px, transparent 1px);
+        background-position:
+          /* Square positions - Left side (2 squares) */
+          80px 160px,
+          160px 400px,
+          /* Right side (2 squares) - positioned far right */
+          calc(100% - 200px) 240px,
+          calc(100% - 120px) 480px,
+          /* Grid lines */
+          0 0,
+          0 0;
+        background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat, repeat;
+      }
+      /* Hide scrollbar for course slider */
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "recharts": "https://aistudiocdn.com/recharts@^3.5.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
