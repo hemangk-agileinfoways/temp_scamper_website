@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-import { Hourglass, Loader2, X } from 'lucide-react';
+import { Hourglass, X } from 'lucide-react';
 
 import { getImageUrl } from '../utils/imageUtils';
 
 import { CourseDetail, fetchCourseDetails } from '../api/courseApi';
+import Loader from './Loader';
 
 interface CourseDetailsModalProps {
   isOpen: boolean;
@@ -69,12 +70,7 @@ const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ isOpen, onClose
         </h2>
 
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-12 sm:py-16 md:py-20 min-h-[200px] sm:min-h-[300px]">
-            <Loader2 className="w-10 h-10 sm:w-12 sm:h-12 text-slate-400 animate-spin mb-4" />
-            <p className="text-slate-500 text-sm sm:text-base font-medium animate-pulse">
-              Loading course details...
-            </p>
-          </div>
+          <Loader message="Loading course details..." className="min-h-[200px] sm:min-h-[300px]" />
         ) : !course ? (
           <div className="flex flex-col items-center justify-center py-12 sm:py-16 md:py-20 min-h-[200px] sm:min-h-[300px]">
             <p className="text-slate-600 text-base sm:text-lg font-medium text-center px-4">

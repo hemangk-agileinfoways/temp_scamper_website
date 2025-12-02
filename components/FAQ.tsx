@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Plus, X } from 'lucide-react';
 
 import { FAQItem, fetchFAQList } from '../api/faqApi';
+import Loader from './Loader';
 
 const FAQ: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'School' | 'Teacher' | 'Student'>('School');
@@ -94,9 +95,7 @@ const FAQ: React.FC = () => {
           {/* Accordion */}
           <div className="space-y-4">
             {loading ? (
-              <div className="text-center py-8">
-                <p className="text-slate-600">Loading FAQs...</p>
-              </div>
+              <Loader message="Loading FAQs..." />
             ) : error ? (
               <div className="text-center py-8">
                 <p className="text-slate-600">Unable to load FAQs. Please try again later.</p>

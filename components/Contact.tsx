@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { Loader2 } from 'lucide-react';
+
+import { submitConnectUs } from '../api/faqApi';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -8,29 +12,92 @@ const Contact: React.FC = () => {
     description: ''
   });
   const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  // Auto-hide success message after 3 seconds
+  useEffect(() => {
+    if (successMessage) {
+      const timer = setTimeout(() => {
+        setSuccessMessage('');
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [successMessage]);
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Clear messages when user starts typing
+    if (successMessage) setSuccessMessage('');
+    if (errorMessage) setErrorMessage('');
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSuccessMessage('');
+    setErrorMessage('');
+
+    // Check for empty fields
+    const emptyFields: string[] = [];
+    const fieldLabels: { [key: string]: string } = {
+      fullName: 'Full Name',
+      email: 'email',
+      subject: 'subject',
+      description: 'description'
+    };
+
+    if (!formData.fullName.trim()) emptyFields.push(fieldLabels.fullName);
+    if (!formData.email.trim()) emptyFields.push(fieldLabels.email);
+    if (!formData.subject.trim()) emptyFields.push(fieldLabels.subject);
+    if (!formData.description.trim()) emptyFields.push(fieldLabels.description);
+
+    // Show error message in form if any fields are empty
+    if (emptyFields.length > 0) {
+      setErrorMessage(`Please provide all the fields: ${emptyFields.join(', ')}`);
+      return;
+    }
+
+    // Validate email format
+    if (!validateEmail(formData.email.trim())) {
+      setErrorMessage('Please provide a valid email address');
+      return;
+    }
+
     setLoading(true);
 
-    // Mock API call to send email
-    setTimeout(() => {
-      console.log('Sending contact us data to kailesh.sanjava@agileinfoways.com', formData);
-      alert('Thank you! Your message has been sent to kailesh.sanjava@agileinfoways.com');
-
-      setFormData({
-        fullName: '',
-        email: '',
-        subject: '',
-        description: ''
+    try {
+      const result = await submitConnectUs({
+        name: formData.fullName.trim(),
+        email: formData.email.trim(),
+        subject: formData.subject.trim(),
+        description: formData.description.trim()
       });
+
+      if (result.success) {
+        setSuccessMessage(result.message);
+        // Reset form
+        setFormData({
+          fullName: '',
+          email: '',
+          subject: '',
+          description: ''
+        });
+      } else {
+        setErrorMessage(result.message);
+      }
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      setErrorMessage('Something went wrong. Please try again.');
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -62,8 +129,22 @@ const Contact: React.FC = () => {
           </div>
 
           {/* Right: Form */}
-          <div className="flex items-center w-full md:w-1/2 lg:w-3/5 bg-white min-h-[500px] md:h-[500px] rounded-2xl sm:rounded-[30px] p-6 sm:p-8 md:p-10 lg:p-12 shadow-2xl shadow-slate-200">
-            <form className="w-full flex flex-col gap-8" onSubmit={handleSubmit}>
+          <div className="flex items-start w-full md:w-1/2 lg:w-3/5 bg-white min-h-[500px] md:h-[500px] rounded-2xl sm:rounded-[30px] p-6 sm:p-8 md:p-10 lg:p-12 shadow-2xl shadow-slate-200">
+            <form className="w-full flex flex-col gap-8" onSubmit={handleSubmit} noValidate>
+              {/* Success Message */}
+              {successMessage && (
+                <div className="p-3 bg-green-50 border border-green-200 text-green-800 rounded-lg text-sm">
+                  {successMessage}
+                </div>
+              )}
+
+              {/* Error Message */}
+              {errorMessage && (
+                <div className="p-3 bg-red-50 border border-red-200 text-red-800 rounded-lg text-sm">
+                  {errorMessage}
+                </div>
+              )}
+
               <div className="flex flex-col gap-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7 md:gap-8">
                   <div className="space-y-2">
@@ -75,7 +156,6 @@ const Contact: React.FC = () => {
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleChange}
-                      required
                       className="w-full border-b border-slate-300 py-2 text-sm sm:text-base focus:outline-none focus:border-slate-900 transition-colors bg-transparent"
                     />
                   </div>
@@ -86,7 +166,6 @@ const Contact: React.FC = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      required
                       className="w-full border-b border-slate-300 py-2 text-sm sm:text-base focus:outline-none focus:border-slate-900 transition-colors bg-transparent"
                     />
                   </div>
@@ -99,7 +178,6 @@ const Contact: React.FC = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    required
                     className="w-full border-b border-slate-300 py-2 text-sm sm:text-base focus:outline-none focus:border-slate-900 transition-colors bg-transparent"
                   />
                 </div>
@@ -108,13 +186,12 @@ const Contact: React.FC = () => {
                   <label className="text-xs sm:text-sm font-semibold text-slate-900">
                     Description
                   </label>
-                  <input
-                    type="text"
+                  <textarea
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
-                    required
-                    className="w-full border-b border-slate-300 py-2 text-sm sm:text-base focus:outline-none focus:border-slate-900 transition-colors bg-transparent"
+                    rows={1}
+                    className="w-full border-b border-slate-300 py-2 text-sm sm:text-base focus:outline-none focus:border-slate-900 transition-colors bg-transparent resize-none"
                   />
                 </div>
               </div>
@@ -122,8 +199,9 @@ const Contact: React.FC = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full md:w-[140px] lg:w-[190px] sm:w-auto bg-[#704FE6] text-white px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full font-medium hover:bg-[#4f46e5] transition-colors shadow-lg hover:shadow-indigo-200/50 disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full md:w-[140px] lg:w-[190px] sm:w-auto bg-[#704FE6] text-white px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full font-medium hover:bg-[#4f46e5] transition-colors shadow-lg hover:shadow-indigo-200/50 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
+                {loading && <Loader2 className="w-4 h-4 animate-spin" />}
                 {loading ? 'Sending...' : 'Submit'}
               </button>
             </form>

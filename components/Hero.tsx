@@ -11,10 +11,10 @@ const Hero: React.FC<HeroProps> = ({ onRegisterClick }) => {
       className="relative pt-36 pb-24 md:pt-44 md:pb-32 overflow-hidden hero-grid scroll-mt-20"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 flex flex-col gap-4">
-        <h1 className="text-4xl md:text-6xl lg:text-[64px] font-semibold text-slate-900 tracking-tight !leading-[130%]">
+        <h1 className="text-3xl md:text-6xl lg:text-[64px] font-semibold text-slate-900 tracking-tight !leading-[130%]">
           All-in-One Platform for <br />
           Managing <span className="text-amber-500">Students</span>,{' '}
-          <span className="text-[#1e293b]">Teachers</span>,<br />
+          <span className="text-[#1D3C63]">Teachers</span>,<br />
           and School Operations
         </h1>
 
@@ -57,10 +57,11 @@ const Hero: React.FC<HeroProps> = ({ onRegisterClick }) => {
       </div>
 
       {/* Center white gradient overlay - hides grid in center */}
-      <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[200px] md:w-[400px] md:h-[300px] lg:w-[500px] lg:h-[350px] rounded-full pointer-events-none z-0" 
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[200px] md:w-[400px] md:h-[300px] lg:w-[500px] lg:h-[350px] rounded-full pointer-events-none z-0"
         style={{
-          background: 'radial-gradient(circle, white 0%, white 50%, rgba(255, 255, 255, 0.8) 70%, transparent 100%)'
+          background:
+            'radial-gradient(circle, white 0%, white 50%, rgba(255, 255, 255, 0.8) 70%, transparent 100%)'
         }}
       ></div>
 
