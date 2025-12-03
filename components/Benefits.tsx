@@ -60,13 +60,13 @@ const Benefits: React.FC = () => {
             >
               <div
                 className="
-        bg-white p-2 sm:p-3 rounded-3xl shadow-md
-        w-[200px] sm:w-[250px] lg:w-[204px]
-        h-[250px] sm:h-[300px] lg:h-[272px]
+         rounded-3xl shadow-md
+        xs:w-[190px] sm:w-[227px] lg:w-[204px]
+        xs-h-[190px] sm:h-[300px] lg:h-[272px]
         flex flex-col items-center justify-end
       "
               >
-                <span className="font-bold text-slate-800 text-center mb-2 text-xs sm:text-sm md:text-base">
+                {/* <span className="font-bold text-slate-800 text-center mb-2 text-xs sm:text-sm md:text-base">
                   A Day at <br /> the Zoo
                 </span>
                 <div
@@ -77,18 +77,24 @@ const Benefits: React.FC = () => {
         "
                 >
                   <span className="text-xl sm:text-2xl">🦁</span>
-                </div>
+                </div> */}
+
+                <img
+                  src="/assets/Images/Benefits/zoo.png"
+                  alt="A Day at the Zoo"
+                  className="w-full h-full object-contain"
+                />
               </div>
 
               <div
                 className="
-        bg-white p-2 sm:p-3 rounded-3xl shadow-md
-        w-[200px] sm:w-[250px] lg:w-[204px]
-         h-[250px] sm:h-[300px] lg:h-[272px]
+        rounded-3xl shadow-md
+        xs-w-[190px] sm:w-[227px] lg:w-[204px]
+         xs-h-[190px] sm:h-[300px] lg:h-[272px]
         flex flex-col items-center justify-end
       "
               >
-                <span className="font-bold text-slate-800 text-center mb-2 text-xs sm:text-sm md:text-base">
+                {/* <span className="font-bold text-slate-800 text-center mb-2 text-xs sm:text-sm md:text-base">
                   My Family <br /> Trip
                 </span>
                 <div
@@ -99,7 +105,12 @@ const Benefits: React.FC = () => {
         "
                 >
                   <span className="text-xl sm:text-2xl">🚌</span>
-                </div>
+                </div> */}
+                <img
+                  src="/assets/Images/Benefits/family.png"
+                  alt="A Day at the Zoo"
+                  className="w-full h-full object-contain"
+                />
               </div>
             </div>
           </div>
@@ -117,7 +128,7 @@ const Benefits: React.FC = () => {
               </div>
               <div className="bg-white rounded-3xl p-3 shadow-sm flex items-center gap-3">
                 <img
-                  src="/assets/Images/User/user-1.png"
+                  src="/assets/Images/User/user-2.png"
                   className="w-14 h-14 rounded-full object-cover"
                   alt="User"
                 />

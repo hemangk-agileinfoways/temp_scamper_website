@@ -1,9 +1,40 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const Testimonials: React.FC = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== 'undefined' ? window.innerWidth : 1024
+  );
+
+  // Track window width for responsive calculations
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial calculation
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Calculate visible cards based on existing responsive breakpoints
+  // Card classes: w-full md:w-[calc(50%-16px)]
+  const getVisibleCards = (): number => {
+    if (windowWidth < 768) {
+      // Mobile: 1 card (w-full)
+      return 1;
+    } else {
+      // Medium and above: 2 cards (md:w-[calc(50%-16px)])
+      return 2;
+    }
+  };
+
+  const totalTestimonials = 2; // Hardcoded testimonials count
+  const visibleCards = getVisibleCards();
+  const shouldShowArrows = totalTestimonials > visibleCards;
 
   const scroll = (direction: 'left' | 'right') => {
     if (!scrollContainerRef.current) return;
@@ -32,22 +63,24 @@ const Testimonials: React.FC = () => {
               Client Testimonials: Real Experiences
             </h2>
           </div>
-          <div className="flex gap-4">
-            <button
-              onClick={() => scroll('left')}
-              className="p-3 rounded-full border border-slate-200 transition-colors bg-[#1D3C63] text-white hover:bg-[#1a3454]"
-              aria-label="Scroll left"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={() => scroll('right')}
-              className="p-3 rounded-full border border-slate-200 transition-colors bg-[#1D3C63] text-white hover:bg-[#1a3454]"
-              aria-label="Scroll right"
-            >
-              <ArrowRight className="w-5 h-5" />
-            </button>
-          </div>
+          {shouldShowArrows && (
+            <div className="flex gap-4">
+              <button
+                onClick={() => scroll('left')}
+                className="p-3 rounded-full border border-slate-200 transition-colors bg-[#1D3C63] text-white hover:bg-[#1a3454]"
+                aria-label="Scroll left"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => scroll('right')}
+                className="p-3 rounded-full border border-slate-200 transition-colors bg-[#1D3C63] text-white hover:bg-[#1a3454]"
+                aria-label="Scroll right"
+              >
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </div>
+          )}
         </div>
 
         <div

@@ -57,6 +57,9 @@ const Courses: React.FC = () => {
   const [courses, setCourses] = useState<CourseListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== 'undefined' ? window.innerWidth : 1024
+  );
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -75,6 +78,43 @@ const Courses: React.FC = () => {
 
     loadCourses();
   }, []);
+
+  // Track window width for responsive calculations
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial calculation
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Calculate visible cards based on existing responsive breakpoints
+  const getVisibleCards = (): number => {
+    // Based on card classes: w-full sm:w-[calc(50%-16px)] md:w-[320px] lg:w-[360px]
+    if (windowWidth < 640) {
+      // Mobile: 1 card (w-full)
+      return 1;
+    } else if (windowWidth < 768) {
+      // Small: 2 cards (sm:w-[calc(50%-16px)])
+      return 2;
+    } else if (windowWidth < 1024) {
+      // Medium: card width 320px + gap 32px = 352px per card
+      // Container max-w-7xl (1280px) with padding ~32px = ~1248px available
+      // 1248 / 352 ≈ 3.5 → 3 visible
+      return 3;
+    } else {
+      // Large: card width 360px + gap 32px = 392px per card
+      // Container max-w-7xl (1280px) with padding ~32px = ~1248px available
+      // 1248 / 392 ≈ 3.2 → 3 visible
+      return 3;
+    }
+  };
+
+  const visibleCards = getVisibleCards();
+  const shouldShowArrows = courses.length > visibleCards;
 
   const scroll = (direction: 'left' | 'right') => {
     if (!scrollContainerRef.current) return;
@@ -112,7 +152,7 @@ const Courses: React.FC = () => {
               Courses : Simple pricing. Flexible options.
             </h2>
           </div>
-          {!loading && hasCourses && (
+          {!loading && hasCourses && shouldShowArrows && (
             <div className="flex gap-4">
               <button
                 onClick={() => scroll('left')}
