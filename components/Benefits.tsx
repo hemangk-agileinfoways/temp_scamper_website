@@ -113,7 +113,7 @@ const Benefits: React.FC = () => {
                   className="w-14 h-14 rounded-full object-cover"
                   alt="User"
                 />
-                <span className="font-semibold text-slate-800">Samantha Doe</span>
+                <span className="font-semibold text-slate-800">Lily Harper</span>
               </div>
               <div className="bg-white rounded-3xl p-3 shadow-sm flex items-center gap-3">
                 <img
@@ -121,7 +121,7 @@ const Benefits: React.FC = () => {
                   className="w-14 h-14 rounded-full object-cover"
                   alt="User"
                 />
-                <span className="font-semibold">John Doe</span>
+                <span className="font-semibold">Chloe Anderson</span>
               </div>
             </div>
             <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold leading-[24px] md:leading-[32px] lg:!leading-[48px]">
@@ -189,7 +189,7 @@ const Benefits: React.FC = () => {
                       className="w-14 h-14 rounded-full"
                       alt="Samantha"
                     />
-                    <span className="text-2xl font-medium leading-10">Samantha Doe</span>
+                    <span className="text-2xl font-medium leading-10">Lily Harper</span>
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">

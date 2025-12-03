@@ -84,3 +84,4 @@ export const fetchCourseDetails = async (id: number): Promise<CourseDetail | nul
 };
 
 
+

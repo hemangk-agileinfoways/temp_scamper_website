@@ -52,9 +52,7 @@ const Footer: React.FC = () => {
                 </li>
               </ul>
             </div>
-            <div>
-              <br />
-              <br />
+            <div className="self-end">
               <ul className="space-y-4 text-sm text-gray-400 -mt-10 md:mt-0">
                 <li>
                   <a

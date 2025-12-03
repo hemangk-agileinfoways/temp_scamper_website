@@ -60,26 +60,26 @@ const Testimonials: React.FC = () => {
         >
           {/* Testimonial 1 */}
           <div
-            className="testimonial-card flex-shrink-0 w-full md:w-[calc(50%-16px)] bg-orange-50 rounded-3xl p-8 md:p-10"
+            className="flex flex-col gap-6 justify-between testimonial-card flex-shrink-0 w-full md:w-[calc(50%-16px)] bg-[#FFF2D7] rounded-3xl p-8 md:p-10"
             style={{ scrollSnapAlign: 'start' }}
           >
-            <h3 className="text-xl font-bold text-slate-900 mb-4">
-              Scamper Software Streamlines School Management
-            </h3>
-            <p className="text-slate-600 leading-relaxed mb-8">
-              As a school administrator, Scamper Software has significantly simplified the
-              management of both students and teachers. The centralized platform allows me to easily
-              monitor attendance, track academic progress, and manage exam schedules without the
-              usual complexity.
-            </p>
+            <div className="flex flex-col gap-4">
+              <h3 className="text-xl font-bold">Scamper Software Streamlines School Management</h3>
+              <p className="text-slate-600 leading-relaxed">
+                As a school administrator, Scamper Software has significantly simplified the
+                management of both students and teachers. The centralized platform allows me to
+                easily monitor attendance, track academic progress, and manage exam schedules
+                without the usual complexity.
+              </p>
+            </div>
             <div className="flex items-center gap-4">
               <img
-                src="https://picsum.photos/id/65/60/60"
-                alt="Sara L"
+                src="/assets/Images/Testimonials/school_admin.png"
+                alt="Rosie Hamilton"
                 className="w-12 h-12 rounded-full object-cover"
               />
               <div>
-                <p className="font-bold text-slate-900">Sara L</p>
+                <p className="font-bold text-slate-900">Rosie Hamilton</p>
                 <p className="text-xs text-slate-500">School Administrator, Little Flower School</p>
               </div>
             </div>
@@ -87,21 +87,21 @@ const Testimonials: React.FC = () => {
 
           {/* Testimonial 2 */}
           <div
-            className="testimonial-card flex-shrink-0 w-full md:w-[calc(50%-16px)] bg-cyan-50 rounded-3xl p-8 md:p-10"
+            className="flex flex-col gap-6 justify-between testimonial-card flex-shrink-0 w-full md:w-[calc(50%-16px)] bg-[#E6FAFF] rounded-3xl p-8 md:p-10"
             style={{ scrollSnapAlign: 'start' }}
           >
-            <h3 className="text-xl font-bold text-slate-900 mb-4">
-              How Scamper Transformed My Learning Experience
-            </h3>
-            <p className="text-slate-600 leading-relaxed mb-8">
-              As a student, Scamper Software has truly transformed my learning experience. The
-              seamless integration of class schedules, assignments, and exam management has made it
-              incredibly easy to stay on top of my studies. I love how the exam-taking feature
-              works.
-            </p>
+            <div className="flex flex-col gap-4">
+              <h3 className="text-xl font-bold ">How Scamper Transformed My Learning Experience</h3>
+              <p className="text-slate-600 leading-relaxed">
+                As a student, Scamper Software has truly transformed my learning experience. The
+                seamless integration of class schedules, assignments, and exam management has made
+                it incredibly easy to stay on top of my studies. I love how the exam-taking feature
+                works.
+              </p>
+            </div>
             <div className="flex items-center gap-4">
               <img
-                src="https://picsum.photos/id/103/60/60"
+                src="/assets/Images/Testimonials/student.png"
                 alt="John Smith"
                 className="w-12 h-12 rounded-full object-cover"
               />

@@ -32,3 +32,4 @@ const Loader: React.FC<LoaderProps> = ({ message = 'Loading...', size = 'md', cl
 };
 
 export default Loader;
+
