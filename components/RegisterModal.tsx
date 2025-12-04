@@ -224,7 +224,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
               value={formData.adminName}
               onChange={handleChange}
               type="text"
-              placeholder="School Admin Name"
+              placeholder="* School Admin Name"
               className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
             />
             <input
@@ -232,7 +232,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
               value={formData.contactNumber}
               onChange={handleChange}
               type="tel"
-              placeholder="Contact number"
+              placeholder="* Contact number"
               className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
             />
           </div>
@@ -244,7 +244,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
               value={formData.adminEmail}
               onChange={handleChange}
               type="email"
-              placeholder="School Admin Email"
+              placeholder="* School Admin Email"
               className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
             />
             <input
@@ -252,7 +252,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
               value={formData.schoolDistrict}
               onChange={handleChange}
               type="text"
-              placeholder="School District"
+              placeholder="* School District"
               className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
             />
           </div>
@@ -264,7 +264,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
               value={formData.schoolName}
               onChange={handleChange}
               type="text"
-              placeholder="School Name"
+              placeholder="* School Name"
               className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
             />
             <input
@@ -272,7 +272,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
               value={formData.schoolWebsite}
               onChange={handleChange}
               type="url"
-              placeholder="School Website"
+              placeholder="* School Website"
               className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
             />
           </div>
@@ -284,7 +284,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
               value={formData.schoolAddress}
               onChange={handleChange}
               type="text"
-              placeholder="School Address"
+              placeholder="* School Address"
               className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
             />
           </div>
@@ -297,7 +297,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
               onChange={handleChange}
               type="number"
               min="1"
-              placeholder="Number of Teachers"
+              placeholder="* Number of Teachers"
               className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
             />
             <input
@@ -306,7 +306,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
               onChange={handleChange}
               type="number"
               min="1"
-              placeholder="Number of Students"
+              placeholder="* Number of Students"
               className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
             />
           </div>

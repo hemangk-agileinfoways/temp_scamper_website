@@ -23,9 +23,6 @@ const CourseCard: React.FC<CourseCardProps> = ({ name, chapters, gradeLabel, onV
           </span>
           <h3 className="text-xl font-bold text-slate-900 mt-1">{name}</h3>
         </div>
-        <div className="p-2 bg-[#1D3C63] rounded-md">
-          <Eye className="w-4 h-4 text-white" />
-        </div>
       </div>
 
       <div className="flex justify-between items-end mb-6 mt-auto">

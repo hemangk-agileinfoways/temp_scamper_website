@@ -58,7 +58,7 @@ const Navbar: React.FC<NavbarProps> = ({ onRegisterClick }) => {
           <div className="hidden lg:flex">
             <button
               onClick={onRegisterClick}
-              className="flex items-center gap-4 bg-[#1D3C63] text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl"
+              className="flex items-center gap-4 bg-[#1D3C63] hover:scale-105 duration-300 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-lg hover:shadow-xl"
             >
               Register
               <RegisterButtonIcon />
@@ -102,7 +102,7 @@ const Navbar: React.FC<NavbarProps> = ({ onRegisterClick }) => {
               setIsOpen(false);
               onRegisterClick();
             }}
-            className="w-full mt-4 flex items-center justify-center gap-2 bg-[#1D3C63] text-white px-5 py-3 rounded-full text-sm font-semibold hover:bg-slate-800"
+            className="w-full mt-4 flex items-center justify-center gap-2 bg-[#1D3C63] text-white px-5 py-3 rounded-full text-sm font-semibold"
           >
             Register
           </button>

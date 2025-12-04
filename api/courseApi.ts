@@ -46,15 +46,15 @@ export interface CourseDetail {
 export const fetchAllCourses = async (): Promise<CourseListItem[]> => {
   try {
     const response = await axiosInstance.get<ApiResponse<CourseListItem[]>>('/course/findAll');
-    
+
     // Extract data from response
     const responseData = response.data?.data;
-    
+
     // Return empty array if data is null, undefined, or not an array
     if (!responseData || !Array.isArray(responseData) || responseData.length === 0) {
       return [];
     }
-    
+
     return responseData;
   } catch (error) {
     console.error('Error fetching courses:', error);
@@ -66,15 +66,15 @@ export const fetchAllCourses = async (): Promise<CourseListItem[]> => {
 export const fetchCourseDetails = async (id: number): Promise<CourseDetail | null> => {
   try {
     const response = await axiosInstance.get<ApiResponse<CourseDetail>>(`/course/view/${id}`);
-    
+
     // Extract data from response
     const responseData = response.data?.data;
-    
+
     // Return null if data is null, undefined, or empty
     if (!responseData) {
       return null;
     }
-    
+
     return responseData;
   } catch (error) {
     console.error(`Error fetching course details for id ${id}:`, error);
@@ -82,6 +82,3 @@ export const fetchCourseDetails = async (id: number): Promise<CourseDetail | nul
     return null;
   }
 };
-
-
-
