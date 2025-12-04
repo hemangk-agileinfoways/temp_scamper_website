@@ -78,7 +78,25 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    let filteredValue = value;
+
+    // Apply input validation based on field name
+    if (name === 'adminName') {
+      // Only allow alphabets and space
+      filteredValue = value.replace(/[^a-zA-Z\s]/g, '');
+    } else if (name === 'schoolName') {
+      // Allow alphabets, numbers, space, dot, hyphen, apostrophe, comma, ampersand, and parentheses
+      filteredValue = value.replace(/[^a-zA-Z0-9.\s\-',&()]/g, '');
+    } else if (name === 'contactNumber') {
+      // Only allow digits, plus sign, hyphens, spaces, parentheses, and dots for phone number formatting
+      filteredValue = value.replace(/[^0-9+\-\s().]/g, '');
+      // Limit length to prevent overly long phone numbers (max 20 characters including formatting)
+      if (filteredValue.length > 20) {
+        filteredValue = filteredValue.slice(0, 20);
+      }
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: filteredValue }));
     // Clear messages when user starts typing
     if (successMessage) setSuccessMessage('');
     if (errorMessage) setErrorMessage('');
@@ -183,140 +201,219 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm overflow-y-auto"
+      className="fixed inset-0 z-[100] flex items-start sm:items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-sm overflow-y-auto"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 w-full max-w-3xl relative shadow-2xl animate-in fade-in zoom-in duration-300 my-4 sm:my-8">
+      <div className="bg-white rounded-xl sm:rounded-2xl md:rounded-3xl p-3 sm:p-5 md:p-8 w-full max-w-3xl relative shadow-2xl animate-in fade-in zoom-in duration-300 my-2 sm:my-4 md:my-8 max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 sm:top-4 sm:right-4 md:top-6 md:right-6 p-2 hover:bg-slate-100 rounded-full transition-colors z-10"
+          className="absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 p-1.5 sm:p-2 hover:bg-slate-100 rounded-full transition-colors z-10"
           type="button"
           aria-label="Close"
         >
-          <X className="w-5 h-5 sm:w-6 sm:h-6 text-slate-900" />
+          <X className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-slate-900" />
         </button>
 
-        <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 md:mb-8 pr-8 sm:pr-10">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 md:mb-6 pr-8 sm:pr-10">
           Register
         </h2>
 
-        <form className="space-y-4 sm:space-y-5" onSubmit={handleSubmit} noValidate>
+        <form className="space-y-3 sm:space-y-4 md:space-y-5" onSubmit={handleSubmit} noValidate>
           {/* Success Message */}
           {successMessage && (
-            <div className="p-2.5 sm:p-3 bg-green-50 border border-green-200 text-green-800 rounded-lg text-xs sm:text-sm leading-relaxed break-words">
+            <div className="p-2 sm:p-2.5 md:p-3 bg-green-50 border border-green-200 text-green-800 rounded-lg text-xs sm:text-sm leading-relaxed break-words">
               {successMessage}
             </div>
           )}
 
           {/* Error Message */}
           {errorMessage && (
-            <div className="p-2.5 sm:p-3 bg-red-50 border border-red-200 text-red-800 rounded-lg text-xs sm:text-sm leading-relaxed break-words">
+            <div className="p-2 sm:p-2.5 md:p-3 bg-red-50 border border-red-200 text-red-800 rounded-lg text-xs sm:text-sm leading-relaxed break-words">
               {errorMessage}
             </div>
           )}
 
           {/* Row 1 */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-            <input
-              name="adminName"
-              value={formData.adminName}
-              onChange={handleChange}
-              type="text"
-              placeholder="* School Admin Name"
-              className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
-            />
-            <input
-              name="contactNumber"
-              value={formData.contactNumber}
-              onChange={handleChange}
-              type="tel"
-              placeholder="* Contact number"
-              className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
+            <div>
+              <label
+                htmlFor="adminName"
+                className="block text-xs sm:text-sm font-medium text-slate-700 mb-1 sm:mb-1.5"
+              >
+                <span className="text-red-500">*</span> School Admin Name
+              </label>
+              <input
+                id="adminName"
+                name="adminName"
+                value={formData.adminName}
+                onChange={handleChange}
+                type="text"
+                placeholder="John Doe"
+                className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="contactNumber"
+                className="block text-xs sm:text-sm font-medium text-slate-700 mb-1 sm:mb-1.5"
+              >
+                <span className="text-red-500">*</span> Contact Number
+              </label>
+              <input
+                id="contactNumber"
+                name="contactNumber"
+                value={formData.contactNumber}
+                onChange={handleChange}
+                type="tel"
+                placeholder="+1 (555) 123-4567"
+                className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
+              />
+            </div>
           </div>
 
           {/* Row 2 */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-            <input
-              name="adminEmail"
-              value={formData.adminEmail}
-              onChange={handleChange}
-              type="email"
-              placeholder="* School Admin Email"
-              className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
-            />
-            <input
-              name="schoolDistrict"
-              value={formData.schoolDistrict}
-              onChange={handleChange}
-              type="text"
-              placeholder="* School District"
-              className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
+            <div>
+              <label
+                htmlFor="adminEmail"
+                className="block text-xs sm:text-sm font-medium text-slate-700 mb-1 sm:mb-1.5"
+              >
+                <span className="text-red-500">*</span> School Admin Email
+              </label>
+              <input
+                id="adminEmail"
+                name="adminEmail"
+                value={formData.adminEmail}
+                onChange={handleChange}
+                type="email"
+                placeholder="admin@school.edu"
+                className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="schoolDistrict"
+                className="block text-xs sm:text-sm font-medium text-slate-700 mb-1 sm:mb-1.5"
+              >
+                <span className="text-red-500">*</span> School District
+              </label>
+              <input
+                id="schoolDistrict"
+                name="schoolDistrict"
+                value={formData.schoolDistrict}
+                onChange={handleChange}
+                type="text"
+                placeholder="New York City"
+                className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
+              />
+            </div>
           </div>
 
           {/* Row 3 */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-            <input
-              name="schoolName"
-              value={formData.schoolName}
-              onChange={handleChange}
-              type="text"
-              placeholder="* School Name"
-              className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
-            />
-            <input
-              name="schoolWebsite"
-              value={formData.schoolWebsite}
-              onChange={handleChange}
-              type="url"
-              placeholder="* School Website"
-              className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
+            <div>
+              <label
+                htmlFor="schoolName"
+                className="block text-xs sm:text-sm font-medium text-slate-700 mb-1 sm:mb-1.5"
+              >
+                <span className="text-red-500">*</span> School Name
+              </label>
+              <input
+                id="schoolName"
+                name="schoolName"
+                value={formData.schoolName}
+                onChange={handleChange}
+                type="text"
+                placeholder="Lincoln High School"
+                className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="schoolWebsite"
+                className="block text-xs sm:text-sm font-medium text-slate-700 mb-1 sm:mb-1.5"
+              >
+                <span className="text-red-500">*</span> School Website
+              </label>
+              <input
+                id="schoolWebsite"
+                name="schoolWebsite"
+                value={formData.schoolWebsite}
+                onChange={handleChange}
+                type="url"
+                placeholder="www.school.edu"
+                className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
+              />
+            </div>
           </div>
 
-          {/* Row 5 */}
+          {/* Row 4 */}
           <div>
+            <label
+              htmlFor="schoolAddress"
+              className="block text-xs sm:text-sm font-medium text-slate-700 mb-1 sm:mb-1.5"
+            >
+              <span className="text-red-500">*</span> School Address
+            </label>
             <input
+              id="schoolAddress"
               name="schoolAddress"
               value={formData.schoolAddress}
               onChange={handleChange}
               type="text"
-              placeholder="* School Address"
-              className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
+              placeholder="123 Main St, City, State 12345"
+              className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
             />
           </div>
 
           {/* Row 5 */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-            <input
-              name="numTeachers"
-              value={formData.numTeachers}
-              onChange={handleChange}
-              type="number"
-              min="1"
-              placeholder="* Number of Teachers"
-              className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
-            />
-            <input
-              name="numStudents"
-              value={formData.numStudents}
-              onChange={handleChange}
-              type="number"
-              min="1"
-              placeholder="* Number of Students"
-              className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
+            <div>
+              <label
+                htmlFor="numTeachers"
+                className="block text-xs sm:text-sm font-medium text-slate-700 mb-1 sm:mb-1.5"
+              >
+                <span className="text-red-500">*</span> Number of Teachers
+              </label>
+              <input
+                id="numTeachers"
+                name="numTeachers"
+                value={formData.numTeachers}
+                onChange={handleChange}
+                type="number"
+                min="1"
+                placeholder="50"
+                className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="numStudents"
+                className="block text-xs sm:text-sm font-medium text-slate-700 mb-1 sm:mb-1.5"
+              >
+                <span className="text-red-500">*</span> Number of Students
+              </label>
+              <input
+                id="numStudents"
+                name="numStudents"
+                value={formData.numStudents}
+                onChange={handleChange}
+                type="number"
+                min="1"
+                placeholder="500"
+                className="w-full border border-slate-300 rounded-md px-3 sm:px-4 py-2 sm:py-2.5 md:py-3 text-sm sm:text-base text-slate-900 placeholder:text-slate-500 font-medium focus:outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all"
+              />
+            </div>
           </div>
 
           {/* Submit Button */}
-          <div className="pt-2">
+          <div className="pt-1 sm:pt-2">
             <button
               type="submit"
               disabled={loading}
-              className="w-full sm:w-auto bg-[#1D3C63] text-white px-8 sm:px-12 py-2.5 sm:py-3 rounded-full font-bold text-sm transition-all shadow-md hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full sm:w-auto bg-[#1D3C63] text-white px-6 sm:px-8 md:px-12 py-2 sm:py-2.5 md:py-3 rounded-full font-bold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
               {loading ? 'Submitting...' : 'Submit'}
