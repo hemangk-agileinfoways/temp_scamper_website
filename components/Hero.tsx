@@ -11,11 +11,12 @@ const Hero: React.FC<HeroProps> = ({ onRegisterClick }) => {
       className="relative pt-36 pb-24 md:pt-44 md:pb-32 overflow-hidden hero-grid scroll-mt-20"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 flex flex-col gap-4">
-        <h1 className="text-3xl md:text-6xl lg:text-[64px] font-semibold text-slate-900 tracking-tight !leading-[130%]">
-          All-in-One Platform for <br />
-          Managing <span className="text-amber-500">Students</span>,{' '}
-          <span className="text-[#1D3C63]">Teachers</span>,<br />
-          and School Operations
+        <h1 className="text-3xl md:text-6xl lg:text-[60px] font-semibold text-slate-900 tracking-tight !leading-[130%]">
+          A K–12 <span className="text-amber-500">learning platform</span> built for
+          <span className="text-[#1D3C63]"> schools</span>—delivering hands-on STEM,
+          <br /> <span className="text-amber-500">entrepreneurship</span>, and financial literacy to
+          prepare <span className="text-[#1D3C63]">students</span>
+          <br /> for life beyond the classroom.
         </h1>
 
         <div className="relative flex items-center justify-center gap-[200px]">

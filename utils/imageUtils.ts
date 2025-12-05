@@ -13,5 +13,5 @@ export const getImageUrl = (imagePath: string | null | undefined): string => {
   }
 
   // Combine base URL and path
-  return `${baseImageUrl}scamper/${imagePath}`;
+  return `${baseImageUrl}scamper/chapter/${imagePath}`;
 };

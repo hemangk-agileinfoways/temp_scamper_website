@@ -126,14 +126,14 @@ const CourseDetailsModal: React.FC<CourseDetailsModalProps> = ({ isOpen, onClose
                       return (
                         <div
                           key={chapter.chapter_id}
-                          className="bg-[#F0F2F5] rounded-xl sm:rounded-2xl p-3 sm:px-8 sm:py-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 md:gap-5 hover:bg-slate-100 transition-colors"
+                          className="bg-[#F0F2F5] rounded-xl sm:rounded-2xl p-3 sm:px-8 sm:py-4 flex flex-row items-start sm:items-center gap-4 md:gap-5 hover:bg-slate-100 transition-colors"
                         >
                           {imageUrl && (
-                            <div className="w-full sm:w-16 sm:h-12 md:w-20 md:h-16 shrink-0 rounded-lg sm:rounded-xl overflow-hidden relative bg-slate-200">
+                            <div className="w-16 h-12 md:w-20 md:h-16 shrink-0 rounded-lg sm:rounded-xl overflow-hidden relative bg-slate-200">
                               <img
                                 src={imageUrl}
                                 alt={chapter.name}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-contain"
                                 onError={(e) => {
                                   // Hide image on error
                                   e.currentTarget.style.display = 'none';
